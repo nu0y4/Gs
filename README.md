@@ -1,12 +1,13 @@
 # Gs
  win中没有grep，那么我自己造一个，原本是用gf工具来提取关键词的，但是window上没有grep，就手搓了一个
+ In Windows, there's no grep, so I decided to make one myself. Originally, I was using the gf tool to extract keywords, but since Windows lacks grep, I ended up crafting my own.
  
-## 安装
+## 安装-install
 ```
 go install github.com/soryecker/Gs@latest
 ```
 
-## 运行
+## 运行-run
 
 `Gs -f <input_file> -o <output_file> -r <regular_expression_file>`
 
