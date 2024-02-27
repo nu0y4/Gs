@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"context"
+	"flag"
 	"fmt"
 	"os"
 	"regexp"
@@ -105,9 +106,23 @@ func readFileA(filePath string) ([]string, error) {
 }
 
 func main() {
-	filePath := "C:\\Users\\A\\Desktop\\新建文本文档.txt"               // url文件
-	mafile := "C:\\Users\\A\\.config\\gf\\interestingparams.json" //正则表达式文件
-	outfile := "C:\\Users\\A\\Desktop\\1111.txt"                  //输出结果的文件
-	mastr, _ := readFileA(mafile)                                 //读取正则表达式，返回string数组
+	urlFile := flag.String("f", "", "Path to the file containing URLs to scan")
+	regexFile := flag.String("r", "", "Path to the file containing regular expressions")
+	outputFile := flag.String("o", "", "Path to the output file for results")
+	help := flag.Bool("help", false, "Display help message")
+
+	// 解析命令行参数
+	flag.Parse()
+
+	// 如果指定了help选项或没有提供必要的参数，打印帮助信息
+	if *help || *urlFile == "" || *regexFile == "" || *outputFile == "" {
+		fmt.Println("Usage of this program:")
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
+	filePath := *urlFile          // url文件
+	mafile := *regexFile          //正则表达式文件
+	outfile := *outputFile        //输出结果的文件
+	mastr, _ := readFileA(mafile) //读取正则表达式，返回string数组
 	matchInFile(filePath, mastr, outfile)
 }
